@@ -1,0 +1,15 @@
+airline_handle TEXT, id_str TEXT PRIMARY KEY, created_at TEXT, tweet TEXT, retweet_count INTEGER, favorite_count INTEGER, lang TEXT, in_reply_to_status_id_str TEXT, user_id_str TEXT, place_country_code TEXT, place_full_name TEXT, place_type TEX
+
+u'AmericanAir', u'962424975557881856', u'Sat Feb 10 20:36:09 +0000 2018', u'@SoSofiaReyes @AmericanAir iugh', 0, 0, u'et', u'962424473147330561', u'872227675', None, None, None
+
+u'AmericanAir', u'962424943152717825', u'Sat Feb 10 20:36:02 +0000 2018', u'@AmericanAir 6 recent flights, all w some issue: tsa pre closed or inconveniently located, delays, fees to jump on\u2026 https://t.co/502WFAWNnb', 0, 0, u'en', None, u'15847994', None, None, None
+
+u'AmericanAir', u'962424877004111872', u'Sat Feb 10 20:35:46 +0000 2018', u'@SoSofiaReyes @AmericanAir *la vetaban y ya no pod\xeda viajar en esa aerol\xednea*', 0, 0, u'es', u'962424473147330561', u'1518096043', None, None, None
+
+u'AmericanAir', u'962424767264342016', u'Sat Feb 10 20:35:20 +0000 2018', u"@kenramirezSD @Delta @AmericanAir @Delta update, boarded another plane, pushed backed and the engine doesn't start\u2026 https://t.co/QmWJmAKGVa", 0, 0, u'en', u'962409428082343936', u'1120318628', None, None, None
+
+u'AmericanAir', u'962424669981716480', u'Sat Feb 10 20:34:56 +0000 2018', u"RT @AmericanAir: @ImsoWhitty We're thrilled to hear of a job well done! We'll be sure to pass along the kudos to our #AATeam.", 1, 0, u'en', None, u'81216254', None, None, None
+
+u'AmericanAir', u'962424293845094400', u'Sat Feb 10 20:33:27 +0000 2018', u'@CjNatoli @AmericanAir Here\u2019s how you fly Uncle @CjNatoli https://t.co/WxYWGT9Qcb', 0, 0, u'en', u'962365707999617024', u'27153646', None, None, None
+
+u'AmericanAir', u'962906655045296128', u'Mon Feb 12 04:30:11 +0000 2018', u'RT @AmericanAir: Us: Selfies are sooooo 2017.\nAlso Us: That lighting though. \u2708\ufe0f  https://t.co/KEFmSZsqfW', 107, 0, u'en', None, u'962900266314973185', None, None, None
