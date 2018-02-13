@@ -7,8 +7,10 @@ def test_db():
 
     #for row in c.execute('SELECT * FROM airlines'):
     #    print row
-    for row in c.execute('SELECT COUNT(*) FROM Tweets'):
+    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="AmericanAir"'):
         print row
+    #for row in c.execute('SELECT * FROM Tweets WHERE airline_handle="Delta" LIMIT 20'):
+    #    print row
 
     conn.close()
 
@@ -45,8 +47,8 @@ def create_db():
     conn.close()
 
 def main():
-    #create_db()
-    test_db()
+    create_db()
+    #test_db()
 
 if __name__ == '__main__':
     main()

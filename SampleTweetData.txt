@@ -12,4 +12,4 @@ u'AmericanAir', u'962424669981716480', u'Sat Feb 10 20:34:56 +0000 2018', u"RT @
 
 u'AmericanAir', u'962424293845094400', u'Sat Feb 10 20:33:27 +0000 2018', u'@CjNatoli @AmericanAir Here\u2019s how you fly Uncle @CjNatoli https://t.co/WxYWGT9Qcb', 0, 0, u'en', u'962365707999617024', u'27153646', None, None, None
 
-u'AmericanAir', u'962906655045296128', u'Mon Feb 12 04:30:11 +0000 2018', u'RT @AmericanAir: Us: Selfies are sooooo 2017.\nAlso Us: That lighting though. \u2708\ufe0f  https://t.co/KEFmSZsqfW', 107, 0, u'en', None, u'962900266314973185', None, None, None
+u'Delta', u'962857668129050624', u'Mon Feb 12 01:15:31 +0000 2018', u'@CharlyCarusoWWE @Delta @ridanaser Is it national shitty airline experience day?', 0, 0, u'en', u'962835802270158848', u'144641476', None, None, None
