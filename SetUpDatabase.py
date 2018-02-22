@@ -1,23 +1,48 @@
+# Use Python 3
 import sys
 import sqlite3
 import csv
+import codecs
 
-#airline_handle: AmericanAir, Delta, *united, SouthwestAir, *AlaskaAir
+#airline_handle: AmericanAir, Delta, united, SouthwestAir, *AlaskaAir
+
+def getHeader():
+    return ['airline_handle', 'id_str', 'created_at', 'tweet', 'retweet_count', 'favorite_count', 'lang', 'in_reply_to_status_id_str', 'user_id_str', 'place_country_code', 'place_full_name', 'place_type']
+
+def exportCSV(airline):
+    conn = sqlite3.connect('database/tweet.db')
+    c = conn.cursor()
+
+    with codecs.open('./data-csv/'+airline+'.csv', 'w') as csvfile:
+        tweetWriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        tweetWriter.writerow(getHeader())
+        for row in c.execute('SELECT * FROM Tweets WHERE airline_handle="' + airline + '" AND lang="en"'):
+            tweetList = []
+            for item in row:
+                if type(item) is str:
+                    newStr = item.replace(',', ' ')
+                    tweetList.append(newStr)
+                else:
+                    tweetList.append(item)
+
+            tweetWriter.writerow(tweetList)
+
+    conn.close()
 
 def test_db():
     conn = sqlite3.connect('database/tweet.db')
     c = conn.cursor()
 
     #for row in c.execute('SELECT * FROM airlines'):
-    #    print row
+    #    print(row)
     #for row in c.execute('SELECT tweet FROM Tweets WHERE airline_handle="AlaskaAir" LIMIT 20'):
-    #    print row
+    #    print(row)
     #for row in c.execute('SELECT * FROM Tweets WHERE airline_handle="Delta" LIMIT 20'):
-    #    print row
-    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="united"'):
-        print row
+    #    print(row)
+    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="AlaskaAir"'):
+        print(row)
     #for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="united" AND lang="en"'):
-    #    print row
+    #    print(row)
 
     conn.close()
 
@@ -55,7 +80,8 @@ def create_db():
 
 def main():
     #create_db()
-    test_db()
+    #test_db()
+    exportCSV('AlaskaAir')
 
 if __name__ == '__main__':
     main()
