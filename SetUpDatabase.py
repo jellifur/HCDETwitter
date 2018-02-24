@@ -29,6 +29,38 @@ def exportCSV(airline):
 
     conn.close()
 
+def exportCSVSameTime(airline):
+    conn = sqlite3.connect('database/' + airline + '.db')
+    c = conn.cursor()
+
+    with codecs.open('./data-csv/collected-same-time/'+airline+'.csv', 'w') as csvfile:
+        tweetWriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        tweetWriter.writerow(getHeader())
+        #for row in c.execute('SELECT * FROM Tweets WHERE airline_handle="' + airline + '" AND lang="en"'):
+        for row in c.execute('SELECT * FROM Tweets'):
+            tweetList = []
+            for item in row:
+                if type(item) is str:
+                    newStr = item.replace(',', ' ')
+                    tweetList.append(newStr)
+                else:
+                    tweetList.append(item)
+
+            tweetWriter.writerow(tweetList)
+
+    conn.close()
+
+def exportCSVCount(airline):
+    conn = sqlite3.connect('database/' + airline + '.db')
+    c = conn.cursor()
+
+    with codecs.open('./data-csv/collected-same-time/'+airline+'-total.csv', 'w') as csvfile:
+        tweetWriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        for row in c.execute('SELECT COUNT(*) FROM Tweets'):
+            tweetWriter.writerow(row)
+
+    conn.close()
+
 def test_db():
     conn = sqlite3.connect('database/tweet.db')
     c = conn.cursor()
@@ -39,12 +71,14 @@ def test_db():
     #    print(row)
     #for row in c.execute('SELECT * FROM Tweets WHERE airline_handle="Delta" LIMIT 20'):
     #    print(row)
-    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="AlaskaAir"'):
+    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="SouthwestAir"'):
         print(row)
     #for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="united" AND lang="en"'):
     #    print(row)
 
     conn.close()
+
+#airline_handle: AmericanAir, Delta, united, SouthwestAir, *AlaskaAir
 
 def create_db():
     conn = sqlite3.connect('database/tweet.db')
@@ -64,11 +98,11 @@ def create_db():
         user_id_str TEXT, place_country_code TEXT, place_full_name TEXT, place_type TEXT)''')
 
     # Insert our airlines into airlines
-    c.execute("INSERT INTO Airlines VALUES ('American Airlines','AmericanAir')")
+    '''c.execute("INSERT INTO Airlines VALUES ('American Airlines','AmericanAir')")
     c.execute("INSERT INTO Airlines VALUES ('Delta','Delta')")
     c.execute("INSERT INTO Airlines VALUES ('United Airlines','united')")
     c.execute("INSERT INTO Airlines VALUES ('Southwest Airlines','SouthwestAir')")
-    c.execute("INSERT INTO Airlines VALUES ('Alaska Airlines','AlaskaAir')")
+    c.execute("INSERT INTO Airlines VALUES ('Alaska Airlines','AlaskaAir')")'''
 
     #c.execute('''CREATE TABLE Analysis (tweet_id_str TEXT PRIMARY KEY, score INTEGER, description TEXT)''')
     # Save (commit) the changes
@@ -81,7 +115,12 @@ def create_db():
 def main():
     #create_db()
     #test_db()
-    exportCSV('AlaskaAir')
+    exportCSVCount('AmericanAir')
+    exportCSVCount('Delta')
+    exportCSVCount('united')
+    exportCSVCount('SouthwestAir')
+    exportCSVCount('AlaskaAir')
+    #exportCSV('AlaskaAir')
 
 if __name__ == '__main__':
     main()
