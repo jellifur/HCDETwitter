@@ -87,7 +87,7 @@ def test_db():
     #    print(row)
     #for row in c.execute('SELECT * FROM Tweets WHERE airline_handle="Delta" LIMIT 20'):
     #    print(row)
-    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="AlaskaAir"'):
+    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="united"'):
         print(row)
     #for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="united" AND lang="en"'):
     #    print(row)
@@ -131,12 +131,17 @@ def create_db():
 def main():
     #create_db()
     #test_db()
+    '''combineDB('AmericanAir')
+    combineDB('Delta')
+    combineDB('united')
+    combineDB('SouthwestAir')
+    combineDB('AlaskaAir')'''
+
     exportCSV('AmericanAir')
     exportCSV('Delta')
     exportCSV('united')
     exportCSV('SouthwestAir')
     exportCSV('AlaskaAir')
-    #exportCSV('AlaskaAir')
 
 if __name__ == '__main__':
     main()
