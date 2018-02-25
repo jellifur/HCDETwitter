@@ -5,6 +5,22 @@ import csv
 import codecs
 
 #airline_handle: AmericanAir, Delta, united, SouthwestAir, *AlaskaAir
+def combineDB(airline):
+    conn1 = sqlite3.connect('database/tweet.db')
+    c1 = conn1.cursor()
+    conn2 = sqlite3.connect('database/' + airline + '.db')
+    c2 = conn2.cursor()
+
+    for row in c2.execute('SELECT * FROM Tweets'):
+        c1.execute("INSERT OR REPLACE INTO Tweets VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", \
+            (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))     
+
+    for row in c2.execute('SELECT * FROM Users'):
+        c1.execute("INSERT OR REPLACE INTO Users VALUES (?, ?, ?, ?, ?, ?, ?, ?)", \
+            (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]))
+
+    conn1.close()
+    conn2.close()
 
 def getHeader():
     return ['airline_handle', 'id_str', 'created_at', 'tweet', 'retweet_count', 'favorite_count', 'lang', 'in_reply_to_status_id_str', 'user_id_str', 'place_country_code', 'place_full_name', 'place_type']
@@ -71,7 +87,7 @@ def test_db():
     #    print(row)
     #for row in c.execute('SELECT * FROM Tweets WHERE airline_handle="Delta" LIMIT 20'):
     #    print(row)
-    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="SouthwestAir"'):
+    for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="AlaskaAir"'):
         print(row)
     #for row in c.execute('SELECT COUNT(*) FROM Tweets WHERE airline_handle="united" AND lang="en"'):
     #    print(row)
@@ -115,11 +131,11 @@ def create_db():
 def main():
     #create_db()
     #test_db()
-    exportCSVCount('AmericanAir')
-    exportCSVCount('Delta')
-    exportCSVCount('united')
-    exportCSVCount('SouthwestAir')
-    exportCSVCount('AlaskaAir')
+    exportCSV('AmericanAir')
+    exportCSV('Delta')
+    exportCSV('united')
+    exportCSV('SouthwestAir')
+    exportCSV('AlaskaAir')
     #exportCSV('AlaskaAir')
 
 if __name__ == '__main__':
