@@ -37,6 +37,7 @@ def exportCSV(airline):
             for item in row:
                 if type(item) is str:
                     newStr = item.replace(',', ' ')
+                    newStr = newStr.replace('\n', ' ')
                     tweetList.append(newStr)
                 else:
                     tweetList.append(item)
