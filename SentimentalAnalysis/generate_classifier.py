@@ -125,19 +125,30 @@ else:
 # print NBClassifier.classify(extract_features(getFeatureVector(processedTestTweet)))
 # print NBClassifier.classify(extract_features(getFeatureVector(processedTestTweet2)))
 
-airlinereal = pd.read_csv("data/data_all.csv", encoding ="ISO-8859-1")
-raw_data = {}
-raw_data['sentiment'] = []
+airlinereal = pd.read_csv("../data-csv/united.csv", encoding ="ISO-8859-1")
+fakeCol = list(airlinereal['airline_handle'])
+airlinereal.insert(0,'sentiment',fakeCol)
+
+airlinereal = airlinereal.fillna("null")
+
+# raw_data = {}
+# raw_data['sentiment'] = []
 num = 0
 for i in range(len(airlinereal)):
-    tweet = airlinereal['tweet'][i]
-    processedTestTweet = processTweet2(tweet)
-    raw_data['sentiment'].append(NBClassifier.classify(extract_features(getFeatureVector(processedTestTweet))))
+    if airlinereal['airline_handle'][i].encode('utf-8').strip() == "united":
+        tweet = airlinereal['tweet'][i]
+        processedTestTweet = processTweet2(tweet)
+        # raw_data['sentiment'].append(NBClassifier.classify(extract_features(getFeatureVector(processedTestTweet))))
+        airlinereal['sentiment'][i] = NBClassifier.classify(extract_features(getFeatureVector(processedTestTweet)))
+    else:
+        # raw_data['sentiment'].append("null")
+        airlinereal['sentiment'][i] = 'null'
     num += 1
     print num
 
-df = pd.DataFrame(raw_data, columns=['sentiment'])
-df.to_csv("result/sentiment_result.csv")
+# df = pd.DataFrame(raw_data, columns=['sentiment'])
+# df.to_csv("result/united_result.csv")
+airlinereal.to_csv("result/united_result.csv", header=True, index=False, encoding='utf-8')
 
 
 
